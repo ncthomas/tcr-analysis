@@ -50,5 +50,5 @@ CDR3 sequences are transformed into numerical vectors using TF-IDF, which are th
 regression model. Each CDR3 sequence is then classified as belonging to a control repertoire or diabetes repertoire, and
 visualised using LIME to determine which amino acid(s) are most influential in making the prediction. The user can set
 ``N_GRAMS`` in the config file, which tells the model how many consecutive amino acids should be used to contruct a feature
-(i.e. ``N_GRAM=1`` means that each amino acid is considered only by itself, whereas ``N_GRAM=2`` uses all consecutive pairs
+(i.e. ``N_GRAMS=1`` means that each amino acid is considered only by itself, whereas ``N_GRAMS=2`` uses all consecutive pairs
 of amino acids in the CDR3 sequence).
