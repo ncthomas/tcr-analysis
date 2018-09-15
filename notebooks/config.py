@@ -1,6 +1,6 @@
 class Config:
 
-    CHAIN = 'alpha'
+    CHAIN = 'beta'
     DATA_DIRECTORY = '/Users/laurapallett/Documents/lauren/data/' + CHAIN + '/'
     OUTPUT_DIRECTORY = '/Users/laurapallett/Documents/lauren/output/' + CHAIN +'/'
     MAX_SEQS = 500

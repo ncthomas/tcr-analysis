@@ -62,8 +62,6 @@ def get_graph(seqs, dists, max_weight):
         for j in range(num_seqs):
             if dists[i,j]<=max_weight:
                 G.add_edge(seqs[i], seqs[j], weight=dists[i,j])
-            
-    edges = [(u, v) for (u, v, d) in G.edges(data=True)]
 
     return G
 
