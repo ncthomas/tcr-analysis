@@ -1,14 +1,29 @@
-# Setup
+# Introduction
 
-* Download or clone this repository to your Documents and navigate to it using
+A suite of approaches to analyse T Cell Receptor sequencing data processed using Decombinator.
 
-``cd Documents/tcranalysis``
 
-* You'll then need to download all necessary packages using
+# Installation
 
-``pip install -r requirements.txt``
+Clone the repository using
 
-* Edit the file ``/notebooks/config.py`` so that ``OUTPUT_DIRECTORY`` and ``DATA_DIRECTORY`` are correct for your own
+``git clone https://github.com/ncthomas/tcranalysis``
+
+Create a virtualenv using
+
+``python3 -m venv .venv``
+
+and activate it using
+
+``source .venv/bin/activate``
+
+Install the Python package and all dependencies using (from the root of this repo)
+
+``pip install .``
+
+# Usage
+
+* Edit the file ``/resources/config.py`` so that ``OUTPUT_DIRECTORY`` and ``DATA_DIRECTORY`` are correct for your own
 machine. ``CHAIN`` will determine which set of CDR3 sequences your code analyses.
 
 * Put your alpha sequences in ``DATA_DIRECTORY/alpha`` and beta sequences in ``DATA_DIRECTORY/beta``.
@@ -17,12 +32,12 @@ machine. ``CHAIN`` will determine which set of CDR3 sequences your code analyses
 
 ``jupyter notebook``
 
-From there you'll be able to navigate into ``/notebooks`` and open the notebook
+From there you'll be able to navigate into ``/analytics`` and open the notebook
 that you wish to run.
 
 # Notebooks
 
-There are 3 notebooks that perform different tasks.
+There are 3 notebooks that perform different tasks, found in the ``analytics`` folder.
 
 ### Summary
 
