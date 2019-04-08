@@ -7,7 +7,6 @@ import tcranalysis.io
 import tcranalysis.metrics
 import tcranalysis.graphs
 
-
 CHAIN = 'beta'
 DATA_DIRECTORY = '/Users/laurapallett/Documents/lauren/data/' + CHAIN + '/'
 OUTPUT_DIRECTORY = '/Users/laurapallett/Documents/lauren/output/' + CHAIN +'/'
@@ -65,7 +64,7 @@ matplotlib.pyplot.close()
 
 # Compare CDR3s in samples with known specificities from VDJdb
 
-specs = pandas.read_csv('../resources/specificities.tsv', sep='\t')[['Gene', 'CDR3', 'V', 'J', 'MHC A', 'Epitope species']]
+specs = pandas.read_csv('../resources/specificities.tsv', sep='\t')[['Gene','CDR3','V','J','MHC A','Epitope species']]
 specs = specs.replace('HomoSapiens', numpy.nan)
 
 if CHAIN == 'alpha':

@@ -13,6 +13,6 @@ setup(
         'matplotlib',
         'seaborn',
         'networkx',
-        'python-Levenshtein''
+        'python-Levenshtein'
     ]
 )

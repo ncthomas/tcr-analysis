@@ -1,45 +1,39 @@
-#!/usr/bin/env python
-# coding: utf-8
 
-# In[ ]:
-
-
-import os
-import sys
 import warnings
 
-import pandas
 import numpy
-import matplotlib.pyplot
-import seaborn
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import label_binarize
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV, cross_val_predict, KFold, train_test_split
-import lime
-import lime.lime_tabular
 
-import functions.io
-import config
+import tcranalysis.io
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-
-# In[ ]:
+CHAIN = 'beta'
+DATA_DIRECTORY = '/Users/laurapallett/Documents/lauren/data/' + CHAIN + '/'
+OUTPUT_DIRECTORY = '/Users/laurapallett/Documents/lauren/output/' + CHAIN +'/'
+MAX_SEQS = 500
+MAX_WEIGHT = 1
+N_GRAMS = 1
 
 
 def get_sample_status(x):
     """Convenience function to create column with sample status"""
 
     status_int = int(x.split("_")[2])
-    
+
     if status_int <= 3:
         status = 'CTRL'
     elif 3 < status_int <= 6:
         status = 'DIABETES'
+    else:
+        status = 'NULL'
 
     return status
+
 
 def get_sample_chain(x):
     """Convenience function to create column with sample chain (alpha or beta)"""
@@ -62,9 +56,6 @@ def apply_color(x):
         col = 'red'
 
     return col
-
-
-# In[ ]:
 
 
 def train_model(X_train, y_train, n=1):
@@ -101,6 +92,7 @@ def test_model(best_pred_model, text_model, X_test, y_test, n=1):
 
     return score
 
+
 def get_feature_names(X, text_model, n=1):
     
     feature_names = [0] * len(text_model.vocabulary_.items())
@@ -110,13 +102,10 @@ def get_feature_names(X, text_model, n=1):
     return feature_names
 
 
-# In[ ]:
-
-
-data = functions.io.read_all_samples(config.Config.DATA_DIRECTORY)
+data = tcranalysis.io.read_all_samples(DATA_DIRECTORY)
 
 data['status'] = data['sample'].apply(lambda x: get_sample_status(x))
-samples = functions.io.get_sample_names(data)
+samples = tcranalysis.io.get_sample_names(data)
 
 # Build model
 
@@ -127,11 +116,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_
 X_train = X_train.reset_index().drop('index', axis=1)
 X_test = X_test.reset_index().drop('index', axis=1)
 
-
-# In[ ]:
-
-
-n_grams = config.Config.N_GRAMS
+n_grams = N_GRAMS
 best_model, text_model = train_model(X_train, y_train, n=n_grams)
 score = test_model(best_model, text_model, X_test, y_test, n=n_grams)
 print("Accuracy =", score, "%")
@@ -139,38 +124,3 @@ print("Accuracy =", score, "%")
 matrix_test = get_tfidf_matrix(X_test, text_model)
 feature_names = get_feature_names(X_train, text_model, n_grams)
 arr = numpy.array(matrix_test)
-
-
-# In[ ]:
-
-
-explainer = lime.lime_tabular.LimeTabularExplainer(arr, feature_names=feature_names, class_names=['CTRL', 'DIABETES'])
-
-
-# In[ ]:
-
-
-# choose a cdr3 from the test set ...
-choose_sample = 2
-X_test.iloc[choose_sample]['seq']
-exp = explainer.explain_instance(arr[choose_sample], best_model.predict_proba, num_features=len(feature_names))
-exp.show_in_notebook(show_table=True)
-
-
-# In[ ]:
-
-
-# or create your own cdr3 sequence ...
-seq = 'CASSEDTQYF'
-df_seq = pandas.DataFrame({'seq': [seq]})
-matrix_seq = numpy.array(get_tfidf_matrix(df_seq, text_model))[0]
-
-exp = explainer.explain_instance(matrix_seq, best_model.predict_proba, num_features=len(feature_names))
-exp.show_in_notebook(show_table=True)
-
-
-# In[ ]:
-
-
-
-
