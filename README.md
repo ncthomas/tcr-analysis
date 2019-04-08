@@ -21,6 +21,10 @@ Install the Python package and all dependencies using (from the root of this rep
 
 ``pip install .``
 
+or install the package and develop it using
+
+``pip install -e .``
+
 # Usage
 
 * Edit the file ``/resources/config.py`` so that ``OUTPUT_DIRECTORY`` and ``DATA_DIRECTORY`` are correct for your own
