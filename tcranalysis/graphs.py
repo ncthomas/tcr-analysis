@@ -91,3 +91,49 @@ def plot_graph(G, coords, seqs, counts, output_path):
     matplotlib.pyplot.axis('off')
     matplotlib.pyplot.savefig(output_path+'_network.png', bbox_inches='tight')
 
+
+def plot_paired_graph(G, coords, seqs, counts, colors, topn, output_path):
+    """Plots a graph of CDR3 sequencing data where points represent CDR3 sequences, point sizes represent their
+    corresponding counts, and edges between points are created if two sequences are similar.
+
+    :param G: networkx graph representing CDR3 sequence similarities
+    :type G: networkx.graph
+    :param coords: 2D representation of CDR3 sequences, projected into 2D using multidimensional scaling
+    :type coords: numpy.array
+    :param seqs: TCR CDR3 sequencing data output from Decombinator
+    :type seqs: list
+    :param counts: TCR CDR3 sequence counts
+    :type counts: list
+    :param output_path: Directory in which to save figure
+    :type output_path: str
+
+    :returns:
+    """
+
+    fs = 7
+    pos = {seqs[i]: coords[i] for i in range(len(seqs))}
+
+    fig, ax = matplotlib.pyplot.subplots(figsize=(4, 4))
+    ax.scatter(coords[:, 0], coords[:, 1], s=counts, color=colors, alpha=1)
+    ax.set_xlabel('MDS 1')
+    ax.set_ylabel('MDS 2')
+
+    indices1 = [i for i, x in enumerate(colors) if x == 'black'][0:topn]
+    indices2 = [i for i, x in enumerate(colors) if x == 'red'][0:topn]
+
+    for ix in indices1:
+        col = colors[ix]
+        x, y = coords[ix]
+        ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='top')
+
+    for ix in indices2:
+        col = colors[ix]
+        x, y = coords[ix]
+        # hack to make plot look nice
+        if seqs[ix] == 'CASSSYNEQFF':
+            ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='bottom')
+        else:
+            ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='bottom')
+
+    matplotlib.pyplot.axis('on')
+    matplotlib.pyplot.savefig(output_path + '_network.eps', bbox_inches='tight')

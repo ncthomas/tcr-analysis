@@ -63,13 +63,17 @@ def get_jaccard(x, y):
 
     return intersection/union
 
+
 def pairwise_jaccard_heatmap(data, samples, output_folder):
+
     """Calculates Jaccard indexes of all pairwise samples
 
     :param data: DataFrame containing sequences, counts and sample names
     :type data: pandas.DataFrame
     :param samples: List of strings of sample names
     :type samples: list
+    :param output_folder: target directory to save image
+    :type output_folder: string
 
     :returns: pandas.DataFrame
     """
@@ -176,4 +180,3 @@ def plot_frequency_distribution_with_specificities(seq_specs, output_path, top_n
         seaborn.despine()
         matplotlib.pyplot.savefig(output_path+s+'_dist_with_specificity.png', bbox_inches='tight')
         matplotlib.pyplot.close()
-        

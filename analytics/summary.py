@@ -8,8 +8,8 @@ import tcranalysis.metrics
 import tcranalysis.graphs
 
 CHAIN = 'beta'
-DATA_DIRECTORY = '/Users/laurapallett/Documents/lauren/data/' + CHAIN + '/'
-OUTPUT_DIRECTORY = '/Users/laurapallett/Documents/lauren/output/' + CHAIN +'/'
+DATA_DIRECTORY = '/Users/laurapallett/Documents/leo/data/' + CHAIN + '/'
+OUTPUT_DIRECTORY = '/Users/laurapallett/Documents/leo/output/002/' + CHAIN +'/'
 MAX_SEQS = 500
 MAX_WEIGHT = 1
 N_GRAMS = 1
@@ -17,14 +17,7 @@ N_GRAMS = 1
 def get_sample_status(x):
     """Convenience function to create column with sample status"""
 
-    status_int = int(x.split("_")[2])
-    
-    if status_int <= 3:
-        status = 'CTRL'
-    elif 3 < status_int <= 6:
-        status = 'DIABETES'
-    else:
-        status = 'NULL'
+    status = x.split("_")[3]
 
     return status
 

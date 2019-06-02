@@ -16,7 +16,7 @@ def read_sample(filename):
     :returns: pandas.DataFrame
     """
 
-    data = pandas.read_csv(filename, header=None, names=['seq','count'])
+    data = pandas.read_csv(filename, header=None, names=['seq', 'count'])
 
     return data
 
