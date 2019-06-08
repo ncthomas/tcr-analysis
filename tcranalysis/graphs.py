@@ -90,6 +90,9 @@ def plot_graph(G, coords, seqs, counts, output_path):
     networkx.draw_networkx_edges(G, pos, alpha=0.4, width=3, edge_color='red')
     matplotlib.pyplot.axis('off')
     matplotlib.pyplot.savefig(output_path+'_network.png', bbox_inches='tight')
+    matplotlib.pyplot.close()
+
+    return fig, ax
 
 
 def plot_paired_graph(G, coords, seqs, counts, colors, topn, output_path):
@@ -110,30 +113,29 @@ def plot_paired_graph(G, coords, seqs, counts, colors, topn, output_path):
     :returns:
     """
 
-    fs = 7
-    pos = {seqs[i]: coords[i] for i in range(len(seqs))}
-
     fig, ax = matplotlib.pyplot.subplots(figsize=(4, 4))
     ax.scatter(coords[:, 0], coords[:, 1], s=counts, color=colors, alpha=1)
     ax.set_xlabel('MDS 1')
     ax.set_ylabel('MDS 2')
 
-    indices1 = [i for i, x in enumerate(colors) if x == 'black'][0:topn]
-    indices2 = [i for i, x in enumerate(colors) if x == 'red'][0:topn]
+    # pos = {seqs[i]: coords[i] for i in range(len(seqs))}
 
-    for ix in indices1:
-        col = colors[ix]
-        x, y = coords[ix]
-        ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='top')
+    # indices1 = [i for i, x in enumerate(colors) if x == 'black'][0:topn]
+    # indices2 = [i for i, x in enumerate(colors) if x == 'red'][0:topn]
 
-    for ix in indices2:
-        col = colors[ix]
-        x, y = coords[ix]
-        # hack to make plot look nice
-        if seqs[ix] == 'CASSSYNEQFF':
-            ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='bottom')
-        else:
-            ax.text(x, y, seqs[ix], fontsize=fs, color=col, horizontalalignment='left', verticalalignment='bottom')
+    # for ix in indices1:
+    #     col = colors[ix]
+    #     x, y = coords[ix]
+    #     ax.text(x, y, seqs[ix], fontsize=7, color=col, horizontalalignment='left', verticalalignment='top')
+    #
+    # for ix in indices2:
+    #     col = colors[ix]
+    #     x, y = coords[ix]
+    #     # hack to make plot look nice
+    #     if seqs[ix] == 'CASSSYNEQFF':
+    #         ax.text(x, y, seqs[ix], fontsize=7, color=col, horizontalalignment='left', verticalalignment='bottom')
+    #     else:
+    #         ax.text(x, y, seqs[ix], fontsize=7, color=col, horizontalalignment='left', verticalalignment='bottom')
 
     matplotlib.pyplot.axis('on')
     matplotlib.pyplot.savefig(output_path + '_network.eps', bbox_inches='tight')

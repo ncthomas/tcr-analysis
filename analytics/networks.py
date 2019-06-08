@@ -5,16 +5,16 @@ import matplotlib.pyplot
 import tcranalysis.io
 import tcranalysis.graphs
 
-CHAIN = 'beta'
-DATA_DIRECTORY = '/Users/laurapallett/Documents/leo/data/' + CHAIN + '/'
+CHAIN = 'alpha'
+DATA_DIRECTORY = '/Users/laurapallett/Documents/leo/newdata/' + CHAIN + '/'
 OUTPUT_DIRECTORY = '/Users/laurapallett/Google Drive/laura/tcr_sequencing/wp005/' + CHAIN +'/'
 MAX_SEQS = 50
 MAX_WEIGHT = 1
 N_GRAMS = 1
 mw = 10
 topn = 5
-sample1 = 'dcr_EXO_0070_NEG_' + CHAIN
-sample2 = 'dcr_EXO_0070_POS_' + CHAIN
+sample1 = 'dcr_EXO_0085_NEG_' + CHAIN
+sample2 = 'dcr_EXO_0085_POS_' + CHAIN
 
 
 def get_sample_status(x):
@@ -57,7 +57,7 @@ for i in range(len(samples)):
 # i.e. how many distinct components (subgraphs) exist
 # when edges are drawn between a pair of CDR3 sequences
 # only if the Levenshtein distance is less than a given
-#  value w - analysis is run for values between 0 and 9
+# value w - analysis is run for values between 0 and 9
 # and these values are shown on the axis in the plot below
 
 connectedness = {}
@@ -105,7 +105,7 @@ ax.set(xlabel='Levenshtein Distance Joining CDR3 Sequences', ylabel='Proportion 
 custom_lines = [matplotlib.lines.Line2D([0], [0], color='black', lw=2),
                 matplotlib.lines.Line2D([0], [0], color='red', lw=2)]
 ax.legend(custom_lines, ['POS', 'NEG'])
-matplotlib.pyplot.show()
+matplotlib.pyplot.savefig(OUTPUT_DIRECTORY+'components_of_graph.png')
 
 # Plot paired graph
 
