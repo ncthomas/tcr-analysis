@@ -5,7 +5,7 @@ import matplotlib.pyplot
 import tcranalysis.io
 import tcranalysis.graphs
 
-CHAIN = 'alpha'
+CHAIN = 'beta'
 DATA_DIRECTORY = '/Users/laurapallett/Documents/leo/newdata/' + CHAIN + '/'
 OUTPUT_DIRECTORY = '/Users/laurapallett/Google Drive/laura/tcr_sequencing/wp005/' + CHAIN +'/'
 MAX_SEQS = 50
@@ -13,8 +13,8 @@ MAX_WEIGHT = 1
 N_GRAMS = 1
 mw = 10
 topn = 5
-sample1 = 'dcr_EXO_0085_NEG_' + CHAIN
-sample2 = 'dcr_EXO_0085_POS_' + CHAIN
+sample1 = 'dcr_EXO_0088_NEG_' + CHAIN
+sample2 = 'dcr_EXO_0088_POS_' + CHAIN
 
 
 def get_sample_status(x):
@@ -85,27 +85,27 @@ for i in range(len(samples)):
     connectedness[samples[i]] = (x,y)
 
 
-fig, ax = matplotlib.pyplot.subplots(figsize=(10,10))
-
-for k, v in connectedness.items():
-
-    if k.split('_')[3] == 'POS':
-        x = v[0]
-        y = v[1]
-        ax.plot(x, y, color='black', lw=2)
-    else:
-        x = v[0]
-        y = v[1]
-        ax.plot(x, y, color='red', lw=2)
-
-ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-ax.spines['right'].set_visible(False)
-ax.spines['top'].set_visible(False)
-ax.set(xlabel='Levenshtein Distance Joining CDR3 Sequences', ylabel='Proportion of Components in Graph')
-custom_lines = [matplotlib.lines.Line2D([0], [0], color='black', lw=2),
-                matplotlib.lines.Line2D([0], [0], color='red', lw=2)]
-ax.legend(custom_lines, ['POS', 'NEG'])
-matplotlib.pyplot.savefig(OUTPUT_DIRECTORY+'components_of_graph.png')
+# fig, ax = matplotlib.pyplot.subplots(figsize=(10,10))
+#
+# for k, v in connectedness.items():
+#
+#     if k.split('_')[3] == 'POS':
+#         x = v[0]
+#         y = v[1]
+#         ax.plot(x, y, color='black', lw=2)
+#     else:
+#         x = v[0]
+#         y = v[1]
+#         ax.plot(x, y, color='red', lw=2)
+#
+# ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+# ax.spines['right'].set_visible(False)
+# ax.spines['top'].set_visible(False)
+# ax.set(xlabel='Levenshtein Distance Joining CDR3 Sequences', ylabel='Proportion of Components in Graph')
+# custom_lines = [matplotlib.lines.Line2D([0], [0], color='black', lw=2),
+#                 matplotlib.lines.Line2D([0], [0], color='red', lw=2)]
+# ax.legend(custom_lines, ['POS', 'NEG'])
+# matplotlib.pyplot.savefig(OUTPUT_DIRECTORY+'components_of_graph.png')
 
 # Plot paired graph
 
@@ -123,4 +123,4 @@ coords = tcranalysis.graphs.get_dimension_mapping(dists)
 
 G = tcranalysis.graphs.get_graph(seqs, dists, max_weight=MAX_WEIGHT)
 
-tcranalysis.graphs.plot_paired_graph(G, coords, seqs, counts, colors, topn, OUTPUT_DIRECTORY)
+tcranalysis.graphs.plot_paired_graph(G, coords, seqs, counts, colors, topn, OUTPUT_DIRECTORY+sample1+'_'+sample2+'_')

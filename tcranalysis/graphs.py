@@ -138,4 +138,4 @@ def plot_paired_graph(G, coords, seqs, counts, colors, topn, output_path):
     #         ax.text(x, y, seqs[ix], fontsize=7, color=col, horizontalalignment='left', verticalalignment='bottom')
 
     matplotlib.pyplot.axis('on')
-    matplotlib.pyplot.savefig(output_path + '_network.eps', bbox_inches='tight')
+    matplotlib.pyplot.savefig(output_path + 'network.eps', bbox_inches='tight')
